@@ -37,13 +37,10 @@ let router = express.Router();
 // apiRoutes.get('/', (req, res)=>{
 //   res.json('Hello, welcome to my awesome RESTful API');
 // });
-//
-// app.get('/users', (req, res)=>{
-//   var jolie = new User({
-//     name: 'Jolie Read',
-//     password: 'unicorn',
-//     admin: true
-//
+
+app.get('/users', auth, (req, res)=>{
+  User.findOne({_id: req.decoded._id});
+
 //   });
 //   jolie.save((err)=>{
 //     if (err) throw err;
