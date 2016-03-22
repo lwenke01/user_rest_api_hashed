@@ -1,0 +1,36 @@
+{
+  "name": "user_rest_api_hashed",
+  "version": "1.0.0",
+  "description": "",
+  "main": "config.js",
+  "directories": {
+    "test": "test"
+  },
+  "dependencies": {
+    "jsonwebtoken": "^5.7.0",
+    "chai": "^3.5.0",
+    "body-parser": "^1.15.0",
+    "bcrypt": "^0.8.5",
+    "chai-http": "^2.0.1",
+    "express": "^4.13.4",
+    "mongoose": "^4.4.8"
+  },
+  "devDependencies": {
+    "mocha": "^2.4.5",
+    "morgan": "^1.7.0"
+  },
+  "scripts": {
+    "test": "mocha",
+    "start": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/lwenke01/user_rest_api_hashed.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/lwenke01/user_rest_api_hashed/issues"
+  },
+  "homepage": "https://github.com/lwenke01/user_rest_api_hashed#readme"
+}
