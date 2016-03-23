@@ -4,6 +4,7 @@ let mongoose = require('mongoose');
 let bcrypt = require('bcrypt');
 let jwt = require('jsonwebtoken');
 let Schema = mongoose.Schema;
+let config = require('../config');
 
 let userSchema = new Schema({
   username: {
@@ -28,7 +29,7 @@ userSchema.methods.compareHash = function(password) {
 };
 
 userSchema.methods.generateToken = function() {
-  return jwt.sign({_id: this._id, group: this.group}, 'Change Me');
+  return jwt.sign({_id: this._id, group: this.group}, config.secret);
 };
 
 

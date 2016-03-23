@@ -1,36 +1,49 @@
 'use strict';
-
+let express = require('express');
+let router = express.Router();
 let bodyParser = require('body-parser');
 let User = require('../models/User');
+// let app = express();
+// app.use('/', router);
 
+router.use(bodyParser.json());
 
+// router.get('/', (req, res)=>{
+//   res.json({msg: 'Welcome to my cool api'});
+// });
 
-module.exports = (router) => {
-  router.use(bodyParser.json());
-  router.route('/users')
+router.route('/users')
   .get((req, res)=>{
     User.find({}, (err, users)=>{
       if(err) res.send(err);
-      res.json(users);
+      res.json({data: users});
     });
   })
-  .post(bodyParser, (req, res)=>{
+  // app.get('/users', (req, res)=>{
+  //   var fran = new User({
+  //     username: 'Fran D',
+  //     password: 'hairday',
+  //     group: 'green'
+  //   });
+  //   fran.save((err, user)=>{
+  //     if(err) res.send(err);
+  //     console.log('User saved');
+  //     res.json({success: true, data: user});
+  //   });
+  // })
+  .post((req, res)=>{
     console.log('POST to /users');
-    if(!req.body.username || !req.body.password){
-      res.json({msg: 'No username or password exists'});
-    } else {
-      var newUser = new User({
-        username: req.body.username,
-        password: req.body.password
-      });
-      newUser.save((err, user)=>{
-        if (err) {
-          return res.json({success: false, msg: 'username already exists'});
-        }
-        res.json({success: true, data: user});
-      });
-    }
+    var newUser = new User({
+      username: req.body.username,
+      password: req.body.password,
+      group: req.body.group
+    });
+    newUser.save((err, user)=>{
+      if (err) res.send(err);
+      res.json({success: true, data: user});
+    });
   });
+  // });
 
 router.route('/users/:user')
   .get((req, res)=>{
@@ -60,8 +73,13 @@ router.route('/users/:user')
     });
 
   });
+// router.route('/authenticate')
+//   .post((req, res)=>{
+//     User.findOne()
+//
+//   })
 
 
 
 
-};
+module.exports = router;
