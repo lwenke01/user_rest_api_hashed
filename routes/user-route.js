@@ -1,15 +1,13 @@
 'use strict';
-let express = require('express');
-let router = express.Router();
+
 let bodyParser = require('body-parser');
 let User = require('../models/User');
-// let app = express();
-// app.use('/', router);
-
-router.use(bodyParser.json());
 
 
-router.route('/users')
+
+module.exports = (router) => {
+  router.use(bodyParser.json());
+  router.route('/users')
   .get((req, res)=>{
     User.find({}, (err, users)=>{
       if(err) res.send(err);
@@ -26,7 +24,9 @@ router.route('/users')
         password: req.body.password
       });
       newUser.save((err, user)=>{
-        if (err) res.send(err);
+        if (err) {
+          return res.json({success: false, msg: 'username already exists'});
+        }
         res.json({success: true, data: user});
       });
     }
@@ -60,13 +60,8 @@ router.route('/users/:user')
     });
 
   });
-// router.route('/authenticate')
-//   .post((req, res)=>{
-//     User.findOne()
-//
-//   })
 
 
 
 
-module.exports = router;
+};
